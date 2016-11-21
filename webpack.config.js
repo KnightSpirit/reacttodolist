@@ -9,10 +9,16 @@ module.exports = {
 	module:{
 		loaders : [
 			{
-				text:/\.js[x]?$/,
+				test:/\.js[x]?$/,
 				exclude: /node_modules/,
 				loader : 'babel',
 				query : {presets:['es2015', 'react']}
+			},
+			{
+				test:/\.css$/,
+				include:path.resolve(__dirname, 'app/css'),
+				exclude: /node_modules/,
+				loader: "style-loader!css-loader?modules"
 			}
 		]
 	}
