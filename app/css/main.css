@@ -6,11 +6,46 @@
 	font-size: 20px;
 	color:black;
 	margin-right: 40px;
+	margin-top: 5px;
+	line-height: 31px;
 }
 
 .titleButton {
 	display: inline-block;
-	background-color: red;
+	background-color: green;
 	color: white;
+	float: right;
+	margin-right: 10px;
+	margin-top: 5px;
+	line-height: 31px;
+	padding: 2px;
 }
 
+.todoPanel {
+	border:1px solid black;
+	width:400px;
+	margin : 0 auto;
+}
+.titleCommon {
+	width: 300px;
+	height: 40px;
+	padding: 5px;
+	margin:0 auto;
+	margin-bottom: 20px;
+	border-bottom : 1px solid grey;
+}
+
+.titleCommon::after {
+	visibility: hidden;
+	content:".";
+	display: block;
+	clear: both;
+	overflow: hidden;
+}
+.dialogShow {
+	display: block;
+}
+
+.dialogHide {
+	display: none;
+}

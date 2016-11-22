@@ -8,7 +8,7 @@ class TodoListPanel extends React.Component {
 
 	render () {
 		return (
-			<div>
+			<div >
 			<TodoTitle />
 			<TodoBody />
 			</div>);
@@ -27,14 +27,12 @@ class TodoListPanel extends React.Component {
 		constructor(...args) {
 			super(...args)
 			this.state = {
-				headtext : 'TodoHead',
+				headtext : 'TodoHead1',
 				buttonText: "修改",
 				inputdisplay : 'none',
 				titleDisplay : 'inline-block'
 			}
 			this.clicked = false;
-			
-
 		}
 
 		ModifyTitle(){
@@ -59,10 +57,9 @@ class TodoListPanel extends React.Component {
 			this.setState({headtext:e.target.value})
 		}
 
-
 		render() {
 			return (
-				<div>
+				<div className={styles.titleCommon}>
 				<span className={styles.todoTitle} style={{display:this.state.titleDisplay}}>{this.state.headtext} </span>
 				<input type="text" style={{display:this.state.inputdisplay}} onChange={this.handleChange.bind(this)} />
 				<span className={styles.titleButton} onClick={this.ModifyTitle.bind(this)}>{this.state.buttonText}</span>
@@ -76,11 +73,48 @@ class TodoListPanel extends React.Component {
 		}
 	}
 
-	class ToDoList extends React.Component{
+	class ToDoDialog extends React.Component{
+		constructor(props) {
+			super(props);
+			this.state = {
+				display : this.getShowOrHide()
+			}
+		}
+
+		getShowOrHide(){
+			return this.props.isOpen ?styles.dialogShow: styles.dialogHide
+		}
+
 		render() {
-			return <div>
-			<CreateTodoListButton onClick={this.CreateNewItem} />
-			<TodoListPanel className="todopanel" />
+			return (<div className={this.state.display}>
+						<span onClick={this.Close}>X</span>
+						<input type="text" />
+					</div>)
+		}
+
+	}
+
+	class ToDoList extends React.Component{
+		constructor(props) {
+			super(props);
+			this.state = {
+				listItems : [],
+				dialogShow : false
+			}
+
+		}
+
+		CreateNewItem(){
+			alert("sdaf")
+			var show = ~this.state.dialogShow;
+			this.setState({dialogShow : show})
+		}
+
+		render() {
+			return <div className={styles.todoPanel}>
+			<CreateTodoListButton onClick={this.CreateNewItem.bind(this)} />
+			<TodoListPanel />
+			<ToDoDialog isOpen={this.state.dialogShow} />	
 			</div>;
 		}
 	}

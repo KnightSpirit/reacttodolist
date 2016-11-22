@@ -1,6 +1,7 @@
 var path = require('path');
 
 module.exports = {
+	devServer: { inline: true },
 	entry: path.resolve(__dirname, 'app/main.js'),
 	output : {
 		path : path.resolve(__dirname, 'app'),
