@@ -16,10 +16,17 @@ class TodoListPanel extends React.Component {
 	}
 
 	class CreateTodoListButton extends React.Component {
-		CreateNewItem(){
+		constructor(props){
+			super(props)
+			this.change = props.showDialog;
 		}
+		CreateNewItem(){
+			var changeState = !this.change;
+			this.props.OpenOrClose(changeState);
+		}
+
 		render () {
-			return <button className="createButton" onClick={this.CreateNewItem}>+</button>
+			return <button className="createButton" onClick={this.CreateNewItem.bind(this)}>+</button>
 		}
 	}
 
@@ -82,9 +89,11 @@ class TodoListPanel extends React.Component {
 		}
 
 		getShowOrHide(){
-			return this.props.isOpen ?styles.dialogShow: styles.dialogHide
+			return this.props.isOpen?styles.dialogShow: styles.dialogHide
 		}
-
+		Close(){
+			this.setState(styles.dialogHide);
+		}
 		render() {
 			return (<div className={this.state.display}>
 						<span onClick={this.Close}>X</span>
@@ -103,18 +112,16 @@ class TodoListPanel extends React.Component {
 			}
 
 		}
-
-		CreateNewItem(){
-			alert("sdaf")
-			var show = ~this.state.dialogShow;
-			this.setState({dialogShow : show})
+		
+		OpenOrCloseDialog(newState){
+			this.setState({dialogShow:newState})
 		}
-
+		
 		render() {
 			return <div className={styles.todoPanel}>
-			<CreateTodoListButton onClick={this.CreateNewItem.bind(this)} />
+			<CreateTodoListButton  showDialog={this.state.dialogShow}  OpenOrClose ={this.OpenOrCloseDialog.bind(this)} />
 			<TodoListPanel />
-			<ToDoDialog isOpen={this.state.dialogShow} />	
+			<ToDoDialog isOpen={this.state.dialogShow}  />	
 			</div>;
 		}
 	}
